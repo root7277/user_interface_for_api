@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:user_interface_for_api/modul/user_model.dart';
 import 'package:user_interface_for_api/widgets/profile_setting.dart';
 import 'package:user_interface_for_api/widgets/settings_container.dart';
 
@@ -11,6 +12,9 @@ class ProfileSettingsPage extends StatefulWidget {
 }
 
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
+
+  UserModel? userModel;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
