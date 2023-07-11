@@ -36,7 +36,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                     print(snapshot.connectionState);
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return Builder(builder: (context) {
-                        return const CircularProgressIndicator();
+                        return const Center(child: CircularProgressIndicator());
                       });
                     }
 
@@ -49,7 +49,10 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                       children: [
                         Stack(
                          children: [
-                           Image.asset(userModel == null? 'assets/person.png': userModel!.image),
+                          CircleAvatar(
+                            radius: 62,
+                            backgroundImage: NetworkImage(userModel == null? 'assets/person.png': userModel!.image),
+                          ),
                            Positioned(left: 100, top: 100, child: SvgPicture.asset('assets/elleps_small.svg')),
                           ]
                         ),
@@ -88,7 +91,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                 print(snapshot.connectionState);
                 if(snapshot.connectionState == ConnectionState.waiting){
                   return Builder(builder: (context) {
-                    return const CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   });
                 }
                 if(snapshot.hasData){
