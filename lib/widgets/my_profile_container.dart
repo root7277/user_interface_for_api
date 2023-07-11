@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:user_interface_for_api/core/get_user_data.dart';
+import 'package:user_interface_for_api/modul/user_model.dart';
 
-class MyProfileContainer extends StatelessWidget {
+class MyProfileContainer extends StatefulWidget {
   const MyProfileContainer({super.key});
 
+  @override
+  State<MyProfileContainer> createState() => _MyProfileContainerState();
+}
+
+class _MyProfileContainerState extends State<MyProfileContainer> {
+  late Future<UserModel> func;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
-      child: InkWell(
-        onTap: () => Navigator.pushNamed(context, 'profile_settings_page'),
+      child: InkWell( 
+        onTap: () {
+          Future<UserModel> user = getUserData();
+          setState(() {
+            func = user;
+          });
+          Navigator.pushNamed(context, 'profile_settings_page');
+        },
         child: Container(
           padding: const EdgeInsets.all(10),
           height: 60,

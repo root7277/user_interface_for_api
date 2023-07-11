@@ -14,6 +14,7 @@ class ProfileSettingsPage extends StatefulWidget {
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
 
   UserModel? userModel;
+  Future<UserModel>? func;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   children: [
                     Stack(
                       children: [
-                        Image.asset('assets/person.png'),
+                        Image.asset(userModel == null? 'assets/person.png': userModel!.image),
                         Positioned(left: 100, top: 100, child: SvgPicture.asset('assets/elleps_small.svg')),
                       ]
                     ),
@@ -42,7 +43,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                       padding: const EdgeInsets.only(left: 80),
                       child: Row(
                         children: [
-                          const SizedBox(width: 180, child: Text('Morgan James', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),)),
+                          SizedBox(width: 180, child: Text(userModel == null? 'Morgan James': userModel!.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),)),
                           Image.asset('assets/pencil.png'),
                         ],
                       ),
@@ -64,12 +65,37 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
               child: Container(height: 3, color: Colors.black54),
             ),
             const SizedBox(height: 19.5),
-            const ProfileSettings(imageSettings: 'assets/icons/user_icon.png', data: 'MorganJamesDesigner', txtSettings: 'Username'),
-            const SizedBox(height: 28),
-            const ProfileSettings(imageSettings: 'assets/icons/contact.png', data: '+24500000000', txtSettings: 'Contact'),
-            const SizedBox(height: 18),
-            const ProfileSettings(imageSettings: 'assets/icons/email.png', data: 'mjdesigner@gmail.com', txtSettings: 'Email '),
-            const SizedBox(height: 17),
+            FutureBuilder(
+              future: func,
+              builder: (context, snapshot) {
+                // print(snapshot.connectionState);
+                if(snapshot.connectionState == ConnectionState.waiting){
+                  return Builder(builder: (context) {
+                    return const CircularProgressIndicator();
+                  });
+                }
+                if(snapshot.hasData){
+                  userModel = snapshot.data;
+                }
+
+                return Column(
+                  children: [
+                    ProfileSettings(imageSettings: 'assets/icons/user_icon.png', data: userModel == null ? 'MorganJamesDesigner': userModel!.username, txtSettings: 'Username'),
+                    const SizedBox(height: 28),
+                    ProfileSettings(imageSettings: 'assets/icons/contact.png', data: userModel == null? '+24500000000': userModel!.contact, txtSettings: 'Contact'),
+                    const SizedBox(height: 18),
+                    ProfileSettings(imageSettings: 'assets/icons/email.png', data: userModel == null? 'mjdesigner@gmail.com': userModel!.email, txtSettings: 'Email '),
+                    const SizedBox(height: 17),
+                  ],
+                );
+              }
+            ),
+            // const ProfileSettings(imageSettings: 'assets/icons/user_icon.png', data: 'MorganJamesDesigner', txtSettings: 'Username'),
+            // const SizedBox(height: 28),
+            // const ProfileSettings(imageSettings: 'assets/icons/contact.png', data: '+24500000000', txtSettings: 'Contact'),
+            // const SizedBox(height: 18),
+            // const ProfileSettings(imageSettings: 'assets/icons/email.png', data: 'mjdesigner@gmail.com', txtSettings: 'Email '),
+            // const SizedBox(height: 17),
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Container(height: 3, color: Colors.black54),
