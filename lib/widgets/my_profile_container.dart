@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:user_interface_for_api/core/get_user_data.dart';
 import 'package:user_interface_for_api/modul/user_model.dart';
 
 class MyProfileContainer extends StatefulWidget {
@@ -16,13 +15,7 @@ class _MyProfileContainerState extends State<MyProfileContainer> {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: InkWell( 
-        onTap: () {
-          Future<UserModel> user = getUserData();
-          setState(() {
-            func = user;
-          });
-          Navigator.pushNamed(context, 'profile_settings_page');
-        },
+        onTap: () => Navigator.pushNamed(context, 'profile_settings_page'),
         child: Container(
           padding: const EdgeInsets.all(10),
           height: 60,

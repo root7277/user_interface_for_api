@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:user_interface_for_api/core/get_user_data.dart';
 import 'package:user_interface_for_api/modul/user_model.dart';
 import 'package:user_interface_for_api/widgets/profile_setting.dart';
 import 'package:user_interface_for_api/widgets/settings_container.dart';
@@ -14,7 +15,7 @@ class ProfileSettingsPage extends StatefulWidget {
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
 
   UserModel? userModel;
-  Future<UserModel>? func;
+  // Future<UserModel>? func;
 
   @override
   Widget build(BuildContext context) {
@@ -66,15 +67,16 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             ),
             const SizedBox(height: 19.5),
             FutureBuilder(
-              future: func,
+              future: getUserData(),
               builder: (context, snapshot) {
-                // print(snapshot.connectionState);
+                print(snapshot.connectionState);
                 if(snapshot.connectionState == ConnectionState.waiting){
                   return Builder(builder: (context) {
                     return const CircularProgressIndicator();
                   });
                 }
                 if(snapshot.hasData){
+                  print(snapshot.data);
                   userModel = snapshot.data;
                 }
 
