@@ -11,7 +11,7 @@ Future<UserModel> getUserData() async {
 
   return UserModel(
     image: data['results'][0]['picture']['medium'], 
-    name: data['results'][0]['name']['first'] + data['results'][0]['name']['last'], 
+    name: data['results'][0]['name']['first'] + ' ' +  data['results'][0]['name']['last'], 
     username: data['results'][0]['login']['username'], 
     contact: data['results'][0]['phone'], 
     email: data['results'][0]['email'],
